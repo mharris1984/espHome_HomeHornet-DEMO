@@ -1,0 +1,44 @@
+esphome:
+  name: hornettest
+  friendly_name: HornetTest
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+logger:
+
+api:
+  encryption:
+    key: "BteR2cXLfCe03pPVW1rvf2MNa0eZQ1CD2dWu2ia0NpU="
+
+ota:
+  password: "082420033797b4e06bb93396aac8d0f6"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  ap:
+    ssid: "Hornettest Fallback Hotspot"
+    password: "F4EcIFGEnNkk"
+    
+binary_sensor:
+  - platform: gpio
+    id: "HornetHome"
+    pin:
+      number: GPIO23
+      mode:
+        input: true
+        pullup: true
+
+output:
+  - platform: ledc
+    pin: 2
+    id: output_ledpin2
+
+light:
+  - platform: monochromatic
+    name: "DEBUG - Board LED"
+    output: output_ledpin2
